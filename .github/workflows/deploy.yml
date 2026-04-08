@@ -21,17 +21,17 @@ jobs:
 
     - name: Login to ECR
       run: |
-        aws ecr get-login-password --region ap-south-1 \
-        | docker login --username AWS --password-stdin 294069345642.dkr.ecr.ap-south-1.amazonaws.com
+        aws ecr get-login-password --region ap-south-1 | \
+        docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-south-1.amazonaws.com
 
     - name: Build Docker Image
       run: docker build -t myapp .
 
     - name: Tag Image
-      run: docker tag myapp:latest <repo-url>:latest
+      run: docker tag myapp:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-south-1.amazonaws.com/myapp:latest
 
     - name: Push to ECR
-      run: docker push <repo-url>:latest
+      run: docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-south-1.amazonaws.com/myapp:latest
 
     - name: Update kubeconfig
       run: aws eks update-kubeconfig --region ap-south-1 --name my-cluster
