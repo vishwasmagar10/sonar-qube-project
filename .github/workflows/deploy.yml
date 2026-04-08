@@ -39,6 +39,7 @@ jobs:
           -Dsonar.projectKey=vishwasmagar10_demo-project
           -Dsonar.organization=vishwasmagar10
           -Dsonar.sources=.
+          -Dsonar.qualitygate.wait=true
 
     - name: SonarCloud Quality Gate
       uses: SonarSource/sonarcloud-quality-gate-action@v1.1.0
