@@ -30,31 +30,31 @@ jobs:
         aws ecr get-login-password --region ap-south-1 | \
         docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-south-1.amazonaws.com
 
-     - name: SonarCloud Scan
+    - name: SonarCloud Scan
       run: |
         npm install -g sonar-scanner
         sonar-scanner \
-          -Dsonar.projectKey=<your_project_key> \
-          -Dsonar.organization=<your_org> \
+          -Dsonar.projectKey=mycompany_demo-project \
+          -Dsonar.organization=vishwasmagar10 \
           -Dsonar.sources=. \
           -Dsonar.host.url=https://sonarcloud.io \
           -Dsonar.login=${{ secrets.SONAR_TOKEN }}
 
     - name: Build Docker Image
-      run: docker build -t myapp .
+      run: docker build -t myapp:${{ github.run_number }} .
 
     - name: Tag Image
-      run: docker tag myapp:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-south-1.amazonaws.com/myapp:latest
+      run: docker tag myapp:${{ github.run_number }} ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-south-1.amazonaws.com/myapp:${{ github.run_number }}
 
     - name: Push to ECR
-      run: docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-south-1.amazonaws.com/myapp:latest
+      run: docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-south-1.amazonaws.com/myapp:${{ github.run_number }}
 
     - name: Update kubeconfig
       run: aws eks update-kubeconfig --region ap-south-1 --name my-cluster
 
     - name: Update image in deployment
       run: |
-        sed -i "s|IMAGE_PLACEHOLDER|${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-south-1.amazonaws.com/myapp:latest|g" deployment.yaml
+        sed -i "s|IMAGE_PLACEHOLDER|${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-south-1.amazonaws.com/myapp:${{ github.run_number }}|g" deployment.yaml
 
     - name: Deploy to EKS
       run: |
