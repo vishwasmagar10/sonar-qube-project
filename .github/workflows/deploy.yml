@@ -1,0 +1,42 @@
+name: Deploy to EKS
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Configure AWS
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ap-south-1
+
+    - name: Login to ECR
+      run: |
+        aws ecr get-login-password --region ap-south-1 \
+        | docker login --username AWS --password-stdin <account-id>.dkr.ecr.ap-south-1.amazonaws.com
+
+    - name: Build Docker Image
+      run: docker build -t myapp .
+
+    - name: Tag Image
+      run: docker tag myapp:latest <repo-url>:latest
+
+    - name: Push to ECR
+      run: docker push <repo-url>:latest
+
+    - name: Update kubeconfig
+      run: aws eks update-kubeconfig --region ap-south-1 --name my-cluster
+
+    - name: Deploy to EKS
+      run: |
+        kubectl apply -f deployment.yaml
+        kubectl apply -f service.yaml
