@@ -8,7 +8,7 @@ This project demonstrates integration of SonarCloud for automated code quality a
 
 * GitHub
 * SonarCloud
-* (Add Jenkins / GitHub Actions if used)
+* GitHub Actions
 
 ## 🔄 CI/CD Flow
 
