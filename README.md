@@ -33,7 +33,7 @@ This project demonstrates integration of SonarCloud for automated code quality a
 ![Pipeline](images/pipeline.png)
 ## 🔗 Project Links
 
-* GitHub Repo: [your link]
+* GitHub Repo: https://github.com/vishwasmagar10/demo-project.git
 * SonarCloud Dashboard: vishwasmagar10_demo-project
 
 ## 💡 Learning Outcome
