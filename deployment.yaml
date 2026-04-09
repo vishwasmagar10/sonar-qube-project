@@ -16,7 +16,6 @@ spec:
       containers:
       - name: myapp
         image: IMAGE_PLACEHOLDER
-      automountServiceAccountToken: false
         ports:
         - containerPort: 3000
         resources:
