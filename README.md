@@ -26,8 +26,11 @@ This project demonstrates integration of SonarCloud for automated code quality a
 
 ## 📸 Screenshots
 
+### SonarCloud Dashboard
+![Sonar](images/sonar.png)
 
-
+### Pipeline Execution
+![Pipeline](images/pipeline.png)
 ## 🔗 Project Links
 
 * GitHub Repo: [your link]
