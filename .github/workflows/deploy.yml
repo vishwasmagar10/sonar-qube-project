@@ -31,7 +31,7 @@ jobs:
         docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-south-1.amazonaws.com
 
     - name: SonarCloud Scan
-      uses: SonarSource/sonarcloud-github-action@v7.0.0
+      uses: SonarSource/sonarqube-scan-action@f099b441665cb71b0414100caf6d835492cee5ff
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       with:
