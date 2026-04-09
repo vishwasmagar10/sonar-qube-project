@@ -14,6 +14,14 @@ spec:
     spec:
       containers:
       - name: myapp
-        image: 294069345642.dkr.ecr.ap-south-1.amazonaws.com/myapp:latest
+        image: IMAGE_PLACEHOLDER
         ports:
         - containerPort: 3000
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "200m"
+            memory: "256Mi"
+  
