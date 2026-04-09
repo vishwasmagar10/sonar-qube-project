@@ -34,7 +34,7 @@ This project demonstrates integration of SonarCloud for automated code quality a
 ## 🔗 Project Links
 
 * GitHub Repo: https://github.com/vishwasmagar10/sonar-qube-project.git
-* SonarCloud Dashboard: vishwasmagar10_demo-project
+* SonarCloud Dashboard: (https://sonarcloud.io/project/overview?id=vishwasmagar10_demo-project)
 
 ## 💡 Learning Outcome
 
